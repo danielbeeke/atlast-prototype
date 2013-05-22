@@ -1,12 +1,12 @@
 $popup-header-height: 52px;
-$popup-footer-height: 40px;
+$popup-footer-height: 44px;
 
 #popup-wrapper {
   position: absolute;
   height: 100%;
   width: 100%;
   z-index: 1;
-  background: white;
+  top: 0;
 
   #popup {
     height: 100%;
@@ -15,7 +15,9 @@ $popup-footer-height: 40px;
   }
 
   #popup-content {
+    background: white;
     padding: $padding;
+    min-height: 60%;
   }
 }
 
@@ -24,7 +26,7 @@ $popup-footer-height: 40px;
   padding: $padding;
   background: white;
 
-  @include transition(all .7s);
+  @include transition(box-shadow .7s);
   @include box-sizing(border-box);
 
   a {
@@ -40,20 +42,31 @@ $popup-footer-height: 40px;
   }
 }
 
-
 #popup-footer {
   background: white;
   border-top: $border-seperator;
   height: $popup-footer-height;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 
-  @include transition(all .7s);
+  @include transition(box-shadow .7s);
   @include box-sizing(border-box);
 
-  li {
-    float: left;
+  ul {
+    list-style: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+    li {
+      float: left;
+      border-right: 1px dashed $gray-light;
 
-    a {
-      padding: $padding;
+      a {
+        @include inline-block;
+        padding: $padding - 5 15px;
+      }
     }
   }
 
@@ -62,25 +75,38 @@ $popup-footer-height: 40px;
   }
 }
 
-// Modifier for the fullscreen popup.
-#popup-wrapper.fullscreen {
-
+// Modifiers
+#popup-wrapper.with-sticky-header {
   #popup-header {
     position: fixed;
     top: 0;
+    // Needed because of jQuery.
+    margin-top: 0 !important;
     width: 100%;
     height: $popup-header-height;
   }
 
   #popup-content {
     margin-top: $popup-header-height;
-    margin-bottom: $popup-footer-height;
-  }
-
-  #popup-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
   }
 }
 
+#popup-wrapper.with-teaser {
+  #popup-header {
+    @include box-shadow(0 0 10px $black);
+  }
+}
+
+#popup-wrapper.with-actions {
+  #popup-content {
+    margin-bottom: $popup-footer-height;
+  }
+}
+
+#popup-wrapper.no-actions {
+  overflow: hidden;
+  #popup-footer {
+    position: absolute;
+    bottom: - $popup-footer-height;
+  }
+}

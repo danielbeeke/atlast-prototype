@@ -14,9 +14,17 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
       // Add the style class.
       if (render.fullscreen) {
         render['classes'].push('fullscreen');
+        render['classes'].push('with-sticky-header');
       }
       else {
         render['classes'].push('with-teaser');
+      }
+
+      if (render.actions) {
+        render['classes'].push('with-actions');
+      }
+      else {
+        render['classes'].push('no-actions');
       }
 
       // Render the new popup via twig.
@@ -32,22 +40,47 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
         $('#main').prepend(newPopup);
       }
 
+      var visibleHeightOfMap = $('#popup').height() - $('#popup-header').outerHeight() - $('.with-actions #popup-footer').outerHeight();
+
+      if ($('#popup-wrapper').hasClass('with-teaser')) {
+        $('#popup-header').css('margin-top', visibleHeightOfMap + 2);
+      }
+
       // Control functions.
       $('#popup').scroll(function () {
 
-        if($(this).scrollTop() == 0) {
-          $('#popup-header').removeClass('has-hidden-content');
-          if ($('#popup').height() < $('#popup-content').height()) {
-            $('#popup-footer').addClass('has-hidden-content');
+        // Adds the class with-sticky-header, it is always added for fullscreen.
+        if ($('#popup-wrapper.with-teaser').length) {
+          if ($(this).scrollTop() > visibleHeightOfMap + 2) {
+            $('#popup-wrapper').addClass('with-sticky-header');
+            $('#popup-content').css('padding-top', visibleHeightOfMap + 12);
+          } else {
+            $('#popup-wrapper').removeClass('with-sticky-header');
+            $('#popup-content').css('padding-top', 10);
           }
-        } else if ($('#popup')[0].scrollHeight - $('#popup').height() == $('#popup').scrollTop()) {
-          $('#popup-footer').removeClass('has-hidden-content');
-          if ($('#popup').height() < $('#popup-content').height()) {
-            $('#popup-header').addClass('has-hidden-content');
-          }
-        } else {
-          $('#popup-header, #popup-footer').addClass('has-hidden-content');
         }
+
+        // Toggles has-hidden-content classes.
+        // TODO find out why it does not seem to work for wider screens.
+        if ($('#popup').height() + visibleHeightOfMap < $('#popup-content').height()) {
+          if($(this).scrollTop() == 0) {
+            $('#popup-header').removeClass('has-hidden-content');
+            $('#popup-footer').addClass('has-hidden-content');
+          } else if ($('#popup')[0].scrollHeight - $('#popup').height() == $('#popup').scrollTop()) {
+            $('#popup-footer').removeClass('has-hidden-content');
+            $('#popup-header').addClass('has-hidden-content');
+          } else {
+            $('#popup-header, #popup-footer').addClass('has-hidden-content');
+          }
+        }
+        else {
+          $('#popup-header, #popup-footer').removeClass('has-hidden-content');
+        }
+      });
+
+      $(window).resize(function() {
+        // Attach classes on resize, this is just fancy pantsy!
+        $('#popup').scroll();
       });
 
       // Init the has-hiddden content classes.
