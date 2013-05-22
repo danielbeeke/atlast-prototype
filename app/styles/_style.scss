@@ -9,3 +9,18 @@ body,
   margin: 0;
   padding: 0;
 }
+
+p {
+  margin: 0;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  color: $black;
+
+  @include transition(color .3s);
+}
+
+a:hover {
+  color: $gray;
+}

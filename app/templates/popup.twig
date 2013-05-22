@@ -11,9 +11,20 @@
       </h2>
     </div>
 
-    {% if description %}
-      <p>{{ description }}</p>
+    <div id="popup-content">
+      {% if description %}
+        <p>{{ description }}</p>
+      {% endif %}
+    </div>
+
+    {% if actions %}
+      <div id="popup-footer">
+        {% for action in actions %}
+          <li><a href="{{ action.href }}"><i class="icon-{{ action.icon }}"></i></a></li>
+        {% endfor %}
+      </div>
     {% endif %}
+
 
   </div>
 </div>

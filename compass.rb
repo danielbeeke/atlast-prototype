@@ -1,3 +1,4 @@
+require 'compass'
 require 'susy'
 
 generatedImagesDir = '.tmp/images/generated'

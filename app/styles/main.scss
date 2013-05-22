@@ -6,8 +6,14 @@ $iconSpritePath: "../images/glyphicons-halflings.png";
 $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 $FontAwesomePath: 'font-awesome/font';
 
-@import 'font-awesome/font-awesome';
+$black: #2e3436;
+$gray: #d3d7cf;
 
+$padding: 10px;
+$border-seperator: 2px solid $gray;
+
+@import 'font-awesome/font-awesome';
+@import 'compass';
 @import 'susy';
 @import 'fonts';
 @import 'map';
