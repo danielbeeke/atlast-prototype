@@ -1,7 +1,16 @@
+/********************************************************
+ * Main
+ *
+ * The init of the app.
+ * Holds some requirejs config.
+ ********************************************************/
+
 require.config({
     paths: {
         jquery: '../bower_components/jquery/jquery',
-        bootstrap: 'vendor/bootstrap'
+        bootstrap: 'vendor/bootstrap',
+        leaflet: '../bower_components/leaflet/dist/leaflet',
+        twig: '../bower_components/twig.js/twig.min',
     },
     shim: {
         bootstrap: {
@@ -13,7 +22,4 @@ require.config({
 
 require(['app', 'jquery', 'bootstrap'], function (app, $) {
     'use strict';
-    // use app here
-    console.log(app);
-    console.log('Running jQuery %s', $().jquery);
 });
