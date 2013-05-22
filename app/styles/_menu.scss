@@ -1,0 +1,155 @@
+.menu {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  padding: $padding-big;
+
+  @include box-sizing(border-box);
+  @include transition(all .7s);
+  @include opacity(1);
+
+  max-height: 100%;
+
+  ul {
+    background: rgba(46, 52, 54, 0.75);
+    display: block;
+    overflow-y: scroll;
+
+    @include box-sizing(border-box);
+    @include border-radius($radius);
+
+    &::-webkit-scrollbar { width: 0 !important }
+
+    li {
+      padding: $padding;
+      border-bottom: 1px dashed $gray;
+
+      &:last-child {
+        border: 0;
+      }
+
+      a:link, a:visited {
+        color: white;
+        display: block;
+      }
+    }
+  }
+
+  .close-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 28px;
+    background: white;
+    width: 24px;
+    height: 24px;
+    z-index: 4;
+    color: $black;
+    visibility: hidden;
+
+    @include opacity(0);
+    @include transition(all .7s);
+    @include border-radius(100%);
+
+    i {
+      position: relative;
+      top: -6px;
+    }
+  }
+}
+
+#menu-main {
+  left: 0;
+
+  @include transform(translate(-100%, 0) translate(20px, 0));
+}
+
+#menu-filters {
+  right: 0;
+
+  @include transform(translate(100%, 0) translate(-20px, 0));
+}
+
+#menu-main.menu.expanded, #menu-filters.menu.expanded {
+  @include transform(none);
+}
+
+.trigger-menu {
+  position: absolute;
+  background: url(../images/menu-button.png);
+  display: block;
+  width: 37px;
+  height: 150px;
+  z-index: 3;
+  top: 40px;
+  visibility: visible;
+
+  @include transition(all .7s);
+  @include opacity(1);
+
+  i {
+    position: relative;
+    top: 65px;
+    color: white;
+    font-weight: 100;
+    font-size: 14px;
+  }
+}
+
+#trigger-menu-main {
+  right: -17px;
+  background-position: right top;
+  i {
+    left: 9px;
+  }
+}
+
+#trigger-menu-filters {
+  left: -17px;
+  i {
+    left: 11px;
+  }
+}
+
+.has-menu-expanded .menu {
+  @include opacity(0);
+  visibility: hidden;
+}
+
+.has-menu-expanded .menu.expanded {
+  @include opacity(1);
+  visibility: visible;
+
+  .close-button {
+    @include opacity(1);
+    visibility: visible;
+  }
+
+  // .trigger-menu {
+  //   @include opacity(0);
+  //   visibility: hidden;
+  // }
+}
+
+#menu-filters {
+  label {
+    cursor: pointer;
+    color: white;
+  }
+  input[type="checkbox"] {
+      display: none;
+  }
+  input[type="checkbox"] + label span {
+      @include inline-block;
+      width: 19px;
+      cursor: pointer;
+      height: 19px;
+      margin: -1px 10px 0 0;
+      background: url(../images/check_radio_sheet.png) left top no-repeat;
+  }
+
+  input[type="checkbox"]:checked + label span {
+      background: url(../images/check_radio_sheet.png) -19px top no-repeat;
+  }
+}

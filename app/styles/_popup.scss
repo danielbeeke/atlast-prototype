@@ -5,29 +5,39 @@ $popup-footer-height: 44px;
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 1;
   top: 0;
+
+  @include transition(all .7s);
 
   #popup {
     height: 100%;
     overflow-y: scroll;
+
     &::-webkit-scrollbar { width: 0 !important }
   }
 
   #popup-content {
+    position: relative;
+    z-index: 3;
     background: white;
     padding: $padding;
     min-height: 60%;
+
+    @include transition(opacity .7s);
+    @include opacity(1);
   }
 }
 
 #popup-header {
+  position: relative;
+  z-index: 2;
   border-bottom: $border-seperator;
   padding: $padding;
   background: white;
 
-  @include transition(box-shadow .7s);
   @include box-sizing(border-box);
+  @include transition(opacity .7s, box-shadow .7s);
+  @include opacity(1);
 
   a {
     float: right;
@@ -47,26 +57,27 @@ $popup-footer-height: 44px;
   border-top: $border-seperator;
   height: $popup-footer-height;
   position: fixed;
+  z-index: 4;
   bottom: 0;
   width: 100%;
 
-  @include transition(box-shadow .7s);
+  @include transition(opacity .7s, box-shadow .7s);
+  @include opacity(1);
   @include box-sizing(border-box);
 
   ul {
-    list-style: none;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    margin-top: 5px;
     li {
       float: left;
       border-right: 1px dashed $gray-light;
 
       a {
         @include inline-block;
-        padding: $padding - 5 15px;
+        padding: $padding 15px;
       }
+    }
+
+    li:hover {
+      background: $black;
     }
   }
 
@@ -80,6 +91,7 @@ $popup-footer-height: 44px;
   #popup-header {
     position: fixed;
     top: 0;
+    z-index: 4;
     // Needed because of jQuery.
     margin-top: 0 !important;
     width: 100%;
@@ -90,8 +102,7 @@ $popup-footer-height: 44px;
     margin-top: $popup-header-height;
   }
 }
-
-#popup-wrapper.with-teaser {
+#popup-wrapper.with-sticky-header {
   #popup-header {
     @include box-shadow(0 0 10px $black);
   }
@@ -108,5 +119,15 @@ $popup-footer-height: 44px;
   #popup-footer {
     position: absolute;
     bottom: - $popup-footer-height;
+  }
+}
+
+body.has-menu-expanded {
+  #popup-wrapper {
+    #popup {
+      #popup-content, #popup-header, #popup-footer {
+        @include opacity(0);
+      }
+    }
   }
 }

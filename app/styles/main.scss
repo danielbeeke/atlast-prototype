@@ -11,6 +11,10 @@ $gray: #d3d7cf;
 $gray-light: #d3d7cf;
 
 $padding: 10px;
+$padding-big: 20px;
+
+$radius: 5px;
+
 $border-seperator: 2px solid $gray;
 
 @import 'font-awesome/font-awesome';
@@ -18,6 +22,7 @@ $border-seperator: 2px solid $gray;
 @import 'susy';
 @import 'fonts';
 @import 'map';
+@import 'menu';
 @import 'popup';
 @import 'style';
 @import 'theme';
