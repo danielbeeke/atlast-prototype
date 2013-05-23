@@ -17,6 +17,7 @@ $radius: 5px;
 
 $border-seperator: 2px solid $gray;
 
+@import '../../bower_components/leaflet/dist/leaflet.css';
 @import 'font-awesome/font-awesome';
 @import 'compass';
 @import 'susy';
