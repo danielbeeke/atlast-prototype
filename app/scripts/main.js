@@ -15,6 +15,7 @@ require.config({
         leaflet: '../bower_components/leaflet/dist/leaflet',
         twig: '../bower_components/twig.js/twig.min',
         scrollTo: '../bower_components/jquery.scrollTo/jquery.scrollTo',
+        easing: '../bower_components/jquery-easing/jquery.easing',
     },
     shim: {
         bootstrap: {

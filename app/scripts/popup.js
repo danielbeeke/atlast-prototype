@@ -4,8 +4,8 @@
  * Handles popup requests.
  ********************************************************/
 
-define(['jquery', 'twigloader', 'scrollTo'], function ($, twigFabric, scrollToFabric) {
-  return {
+define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, scrollToFabric, easingFabric) {
+  var functions = {
     open: function(render) {
 
 /********************************************************
@@ -112,6 +112,10 @@ define(['jquery', 'twigloader', 'scrollTo'], function ($, twigFabric, scrollToFa
  * Functions triggers etc
  ********************************************************/
 
+      $('#popup-close-button').click(function(event) {
+        functions.close();
+      });
+
       $$('#popup').swipeUp(function(event) {
         console.log(event)
 
@@ -128,7 +132,15 @@ define(['jquery', 'twigloader', 'scrollTo'], function ($, twigFabric, scrollToFa
 
 
     },
+    close: function() {
+      $('#popup-wrapper').addClass('before-closing');
+      setTimeout(function() {
+        $('#popup-wrapper').remove();
+      }, 700);
+    }
   }
+
+  return functions;
 });
 
 

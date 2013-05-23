@@ -131,3 +131,9 @@ body.has-menu-expanded {
     }
   }
 }
+
+#popup-wrapper.before-closing {
+  #popup-content, #popup-header, #popup-footer {
+    @include opacity(0);
+  }
+}

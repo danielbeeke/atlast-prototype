@@ -37,6 +37,7 @@
 
 #search-results {
   @include opacity(0);
+  visibility: hidden;
   @include transition(all .7s);
   margin-top: -4px;
   left: 0;
@@ -53,5 +54,6 @@
 .has-menu-expanded {
   #search-input:focus + i.icon-search + #search-results-wrapper > #search-results {
     @include opacity(1);
+    visibility: visible;
   }
 }
