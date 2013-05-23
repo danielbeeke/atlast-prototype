@@ -56,9 +56,15 @@ define(['jquery', 'twigloader', 'scrollTo'], function ($, twigFabric, scrollToFa
 
       var visibleHeightOfMap = $('#popup').height() - $('#popup-header').outerHeight() - $('.with-actions #popup-footer').outerHeight();
 
-      if ($('#popup-wrapper').hasClass('with-teaser')) {
-        $('#popup-header').css('margin-top', visibleHeightOfMap + 2);
-      }
+      $(window).resize(function() {
+        visibleHeightOfMap = $('#popup').height() - $('#popup-header').outerHeight() - $('.with-actions #popup-footer').outerHeight();
+
+        if ($('#popup-wrapper').hasClass('with-teaser')) {
+          $('#popup-header').css('margin-top', visibleHeightOfMap + 2);
+        }
+      });
+
+      $(window).resize();
 
       // Control functions.
       $('#popup').scroll(function () {
