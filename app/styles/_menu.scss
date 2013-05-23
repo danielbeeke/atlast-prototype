@@ -66,16 +66,24 @@
   }
 }
 
-#menu-main {
+#menu-main.menu {
   left: 0;
-
   @include transform(translate(-100%, 0) translate(20px, 0));
+  ul {
+    @include border-radius($radius 0 $radius $radius);
+  }
+
+  a.close-button {
+    left: 10px;
+  }
 }
 
-#menu-filters {
+#menu-filters.menu {
   right: 0;
-
   @include transform(translate(100%, 0) translate(-20px, 0));
+  ul {
+    @include border-radius(0 $radius $radius $radius);
+  }
 }
 
 #menu-main.menu.expanded, #menu-filters.menu.expanded {
@@ -90,7 +98,7 @@
   width: 37px;
   height: 37px;
   z-index: 3;
-  top: 90px;
+  top: 20px;
   visibility: visible;
 
   @include transition(all .7s);
