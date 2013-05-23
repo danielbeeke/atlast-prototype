@@ -1,0 +1,31 @@
+<div id="popup-wrapper" {% if classes %} class="{{ classes|join(' ') }}" {% endif %}>
+  <div id="popup">
+
+    <div id="popup-header" class="has-hidden-content">
+      <h2>
+        {% if icon %}
+          <i class="icon-{{ icon }}"></i>&nbsp;
+        {% endif %}
+        {{ title }}
+        <a id="popup-close-button" href="#"><i class="icon-remove-sign"></i></a>
+      </h2>
+    </div>
+
+    <div id="popup-content">
+      {% if description %}
+        <p>{{ description }}</p>
+      {% endif %}
+    </div>
+
+    <div id="popup-footer">
+      {% if actions %}
+        <ul>
+          {% for action in actions %}
+            <li><a href="{{ action.href }}"><i class="icon-{{ action.icon }}"></i></a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+  </div>
+</div>

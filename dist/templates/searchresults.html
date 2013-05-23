@@ -1,0 +1,8 @@
+<a class="close-button" href="#"><i class="icon-remove-sign"></i></a>
+<ul>
+  {% for item in responseItems %}
+    <li><a href="{{ item.href }}"><i class="icon-{{ item.icon }}"></i> {{ item.label }}</a></li>
+  {% else %}
+    <li><em>Zoek maar raak!</em></li>
+  {% endfor %}
+</ul>

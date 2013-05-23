@@ -1,0 +1,28 @@
+<div id="menu-wrapper">
+  <div id="menu-main" class="menu">
+    <a href="#" class="trigger-menu" id="trigger-menu-main">
+      <i class="icon-align-justify"></i>
+    </a>
+
+    <a class="close-button" href="#"><i class="icon-remove-sign"></i></a>
+    <ul>
+      {% for item in menuItems %}
+        <li><a href="{{ item.href }}"><i class="icon-{{ item.icon }}"></i> {{ item.label }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div id="menu-filters" class="menu">
+    <a href="#" class="trigger-menu" id="trigger-menu-filters">
+      <i class="icon-list"></i>
+    </a>
+
+    <a class="close-button" href="#"><i class="icon-remove-sign"></i></a>
+
+    <ul>
+      {% for key, item in filterItems %}
+        <li><input type="checkbox" id="{{ key }}" name="{{ key }}" /><label for="{{ key }}"><span></span>{{ item.label }}</label></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
