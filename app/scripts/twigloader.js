@@ -16,7 +16,7 @@ define(['jquery', 'twig'], function ($, twigEngine) {
       if (!twigTemplates[templateName]) {
         twigTemplates[templateName] = twigEngine.twig({
             id: templateName,
-            href: 'templates/' + templateName + '.twig',
+            href: 'templates/' + templateName + '.html',
             async: false
         });
       }
