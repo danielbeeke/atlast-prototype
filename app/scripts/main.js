@@ -3,6 +3,9 @@
  *
  * The init of the app.
  * Holds some requirejs config.
+ *
+ * Small hack in quojs:
+ * https://groups.google.com/forum/#!topic/quojs/o3Sh6KxPg3I
  ********************************************************/
 
 require.config({
@@ -11,6 +14,7 @@ require.config({
         bootstrap: 'vendor/bootstrap',
         leaflet: '../bower_components/leaflet/dist/leaflet',
         twig: '../bower_components/twig.js/twig.min',
+        scrollTo: '../bower_components/jquery.scrollTo/jquery.scrollTo',
     },
     shim: {
         bootstrap: {
@@ -20,6 +24,6 @@ require.config({
     }
 });
 
-require(['app', 'jquery', 'bootstrap'], function (app, $) {
+require(['app', 'jquery'], function (app, $) {
     'use strict';
 });

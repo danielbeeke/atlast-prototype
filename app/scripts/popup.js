@@ -4,9 +4,13 @@
  * Handles popup requests.
  ********************************************************/
 
-define(['jquery', 'twigloader'], function ($, twigFabric) {
+define(['jquery', 'twigloader', 'scrollTo'], function ($, twigFabric, scrollToFabric) {
   return {
     open: function(render) {
+
+/********************************************************
+ * Prepare
+ ********************************************************/
 
       // Adding a classes array if not present.
       if (!render['classes']) { render['classes'] = []; }
@@ -15,30 +19,40 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
       if (render.fullscreen) {
         render['classes'].push('fullscreen');
         render['classes'].push('with-sticky-header');
-      }
-      else {
+      } else {
         render['classes'].push('with-teaser');
       }
 
       if (render.actions) {
         render['classes'].push('with-actions');
-      }
-      else {
+      } else {
         render['classes'].push('no-actions');
       }
+
+/********************************************************
+ * Render
+ ********************************************************/
 
       // Render the new popup via twig.
       var newPopup = twigFabric.render('popup', render);
 
       // Replace the old popup.
       if ($('#popup').length) {
-
+        $('#popup').fadeOut(function () {
+          $('#popup').remove(function () {
+            $('#main').after(newPopup);
+          });
+        });
       }
 
       // Init the popup.
       else {
-        $('#main').prepend(newPopup);
+        $('#main').append(newPopup);
       }
+
+/********************************************************
+ * Functions to create the visual interaction
+ ********************************************************/
 
       var visibleHeightOfMap = $('#popup').height() - $('#popup-header').outerHeight() - $('.with-actions #popup-footer').outerHeight();
 
@@ -87,58 +101,30 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
 
       // Init the has-hiddden content classes.
       $('#popup').scroll();
+
+/********************************************************
+ * Functions triggers etc
+ ********************************************************/
+
+      $$('#popup').swipeUp(function(event) {
+        console.log(event)
+
+        var force = event.iniTouch.y - event.currentTouch.y;
+
+        $('#popup').scrollTo('+=' + force * 2 + 'px', 300);
+      });
+
+      $$('#popup').swipeDown(function(event) {
+        var force = event.currentTouch.y - event.iniTouch.y;
+
+        $('#popup').scrollTo('-=' + force * 2 + 'px', 300);
+      });
+
+
     },
-    test: function(item) {
-      if (!item) {
-        item = 'popup1';
-      }
-
-      var templates = {
-        popup1: {
-          title: 'Information',
-          icon: 'bullhorn',
-          actions: {
-            'favorite': {
-              icon: 'star'
-            },
-            'note': {
-              icon: 'pencil'
-            }
-          },
-          classes: ['information'],
-          description: 'Proin consequat mattis ipsum, eu euismod orci fringilla id. Nullam in sem est, non laoreet eros. Aenean id lacus in orci elementum vulputate in a ligula. Etiam cursus magna et lacus volutpat nec luctus neque vehicula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur dui velit, lacinia vel adipiscing eu, blandit ut nisi. Quisque aliquam iaculis iaculis. Nulla consequat, justo et rutrum vulputate, erat est lacinia neque, eu semper elit metus ut neque. Duis ac neque sit amet augue molestie pellentesque. Duis et sem vel lorem placerat pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec eu orci quam, ut ultricies ante. Mauris tortor quam, vehicula vitae aliquam quis, vestibulum sit amet nisi. Aenean et ipsum id sem egestas pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet imperdiet nisl. Suspendisse purus quam, commodo non commodo et, suscipit id enim. Aenean vulputate mattis nisl in hendrerit. Fusce eleifend facilisis viverra. In dignissim, velit quis interdum sodales, nibh purus interdum ante, nec sodales augue augue aliquam arcu. Proin consequat mattis ipsum, eu euismod orci fringilla id. Nullam in sem est, non laoreet eros. Aenean id lacus in orci elementum vulputate in a ligula. Etiam cursus magna et lacus volutpat nec luctus neque vehicula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur dui velit, lacinia vel adipiscing eu, blandit ut nisi. Quisque aliquam iaculis iaculis. Nulla consequat, justo et rutrum vulputate, erat est lacinia neque, eu semper elit metus ut neque. Duis ac neque sit amet augue molestie pellentesque. Duis et sem vel lorem placerat pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec eu orci quam, ut ultricies ante. Mauris tortor quam, vehicula vitae aliquam quis, vestibulum sit amet nisi. Aenean et ipsum id sem egestas pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet imperdiet nisl. Suspendisse purus quam, commodo non commodo et, suscipit id enim. Aenean vulputate mattis nisl in hendrerit. Fusce eleifend facilisis viverra. In dignissim, velit quis interdum sodales, nibh purus interdum ante, nec sodales augue augue aliquam arcu.'
-        },
-        popup2: {
-          title: 'Information',
-          fullscreen: true,
-          icon: 'bullhorn',
-          actions: {
-            'favorite': {
-              icon: 'star'
-            },
-            'note': {
-              icon: 'pencil'
-            }
-          },
-          classes: ['information'],
-          description: 'Proin consequat mattis ipsum, eu euismod orci fringilla id. Nullam in sem est, non laoreet eros. Aenean id lacus in orci elementum vulputate in a ligula. Etiam cursus magna et lacus volutpat nec luctus neque vehicula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur dui velit, lacinia vel adipiscing eu, blandit ut nisi. Quisque aliquam iaculis iaculis. Nulla consequat, justo et rutrum vulputate, erat est lacinia neque, eu semper elit metus ut neque. Duis ac neque sit amet augue molestie pellentesque. Duis et sem vel lorem placerat pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec eu orci quam, ut ultricies ante. Mauris tortor quam, vehicula vitae aliquam quis, vestibulum sit amet nisi. Aenean et ipsum id sem egestas pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet imperdiet nisl. Suspendisse purus quam, commodo non commodo et, suscipit id enim. Aenean vulputate mattis nisl in hendrerit. Fusce eleifend facilisis viverra. In dignissim, velit quis interdum sodales, nibh purus interdum ante, nec sodales augue augue aliquam arcu. Proin consequat mattis ipsum, eu euismod orci fringilla id. Nullam in sem est, non laoreet eros. Aenean id lacus in orci elementum vulputate in a ligula. Etiam cursus magna et lacus volutpat nec luctus neque vehicula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur dui velit, lacinia vel adipiscing eu, blandit ut nisi. Quisque aliquam iaculis iaculis. Nulla consequat, justo et rutrum vulputate, erat est lacinia neque, eu semper elit metus ut neque. Duis ac neque sit amet augue molestie pellentesque. Duis et sem vel lorem placerat pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec eu orci quam, ut ultricies ante. Mauris tortor quam, vehicula vitae aliquam quis, vestibulum sit amet nisi. Aenean et ipsum id sem egestas pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet imperdiet nisl. Suspendisse purus quam, commodo non commodo et, suscipit id enim. Aenean vulputate mattis nisl in hendrerit. Fusce eleifend facilisis viverra. In dignissim, velit quis interdum sodales, nibh purus interdum ante, nec sodales augue augue aliquam arcu.'
-        },
-        popup3: {
-          title: 'Information',
-          fullscreen: true,
-          icon: 'bullhorn',
-          classes: ['information'],
-          description: 'Proin consequat mattis ipsum, eu euismod orci fringilla id. Nullam in sem est, non laoreet eros. Aenean id lacus in orci elementum vulputate in a ligula. Etiam cursus magna et lacus volutpat nec luctus neque vehicula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur dui velit, lacinia vel adipiscing eu, blandit ut nisi. Quisque aliquam iaculis iaculis. Nulla consequat, justo et rutrum vulputate, erat est lacinia neque, eu semper elit metus ut neque. Duis ac neque sit amet augue molestie pellentesque. Duis et sem vel lorem placerat pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec eu orci quam, ut ultricies ante. Mauris tortor quam, vehicula vitae aliquam quis, vestibulum sit amet nisi. Aenean et ipsum id sem egestas pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet imperdiet nisl. Suspendisse purus quam, commodo non commodo et, suscipit id enim. Aenean vulputate mattis nisl in hendrerit. Fusce eleifend facilisis viverra. In dignissim, velit quis interdum sodales, nibh purus interdum ante, nec sodales augue augue aliquam arcu. Proin consequat mattis ipsum, eu euismod orci fringilla id. Nullam in sem est, non laoreet eros. Aenean id lacus in orci elementum vulputate in a ligula. Etiam cursus magna et lacus volutpat nec luctus neque vehicula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur dui velit, lacinia vel adipiscing eu, blandit ut nisi. Quisque aliquam iaculis iaculis. Nulla consequat, justo et rutrum vulputate, erat est lacinia neque, eu semper elit metus ut neque. Duis ac neque sit amet augue molestie pellentesque. Duis et sem vel lorem placerat pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec eu orci quam, ut ultricies ante. Mauris tortor quam, vehicula vitae aliquam quis, vestibulum sit amet nisi. Aenean et ipsum id sem egestas pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet imperdiet nisl. Suspendisse purus quam, commodo non commodo et, suscipit id enim. Aenean vulputate mattis nisl in hendrerit. Fusce eleifend facilisis viverra. In dignissim, velit quis interdum sodales, nibh purus interdum ante, nec sodales augue augue aliquam arcu.'
-        },
-        popup4: {
-          title: 'Information',
-          icon: 'bullhorn',
-          classes: ['information'],
-          description: 'Proin consequat mattis ipsum, eu euismod orci fringilla id. Nullam in sem est, non laoreet eros. Aenean id lacus in orci elementum vulputate in a ligula. Etiam cursus magna et lacus volutpat nec luctus neque vehicula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur dui velit, lacinia vel adipiscing eu, blandit ut nisi. Quisque aliquam iaculis iaculis. Nulla consequat, justo et rutrum vulputate, erat est lacinia neque, eu semper elit metus ut neque. Duis ac neque sit amet augue molestie pellentesque. Duis et sem vel lorem placerat pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec eu orci quam, ut ultricies ante. Mauris tortor quam, vehicula vitae aliquam quis, vestibulum sit amet nisi. Aenean et ipsum id sem egestas pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet imperdiet nisl. Suspendisse purus quam, commodo non commodo et, suscipit id enim. Aenean vulputate mattis nisl in hendrerit. Fusce eleifend facilisis viverra. In dignissim, velit quis interdum sodales, nibh purus interdum ante, nec sodales augue augue aliquam arcu. Proin consequat mattis ipsum, eu euismod orci fringilla id. Nullam in sem est, non laoreet eros. Aenean id lacus in orci elementum vulputate in a ligula. Etiam cursus magna et lacus volutpat nec luctus neque vehicula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur dui velit, lacinia vel adipiscing eu, blandit ut nisi. Quisque aliquam iaculis iaculis. Nulla consequat, justo et rutrum vulputate, erat est lacinia neque, eu semper elit metus ut neque. Duis ac neque sit amet augue molestie pellentesque. Duis et sem vel lorem placerat pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec eu orci quam, ut ultricies ante. Mauris tortor quam, vehicula vitae aliquam quis, vestibulum sit amet nisi. Aenean et ipsum id sem egestas pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet imperdiet nisl. Suspendisse purus quam, commodo non commodo et, suscipit id enim. Aenean vulputate mattis nisl in hendrerit. Fusce eleifend facilisis viverra. In dignissim, velit quis interdum sodales, nibh purus interdum ante, nec sodales augue augue aliquam arcu.'
-        }
-      }
-
-      this.open(templates[item]);
-    }
   }
 });
+
+
+
+

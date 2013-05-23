@@ -6,9 +6,17 @@ html,
 body,
 #main {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+  z-index: 99;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
 }
 
 p {
@@ -20,10 +28,6 @@ a:link, a:visited {
   color: $black;
 
   @include transition(color .3s);
-}
-
-a:hover {
-  color: $gray;
 }
 
 i {

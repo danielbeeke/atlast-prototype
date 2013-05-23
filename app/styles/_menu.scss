@@ -1,6 +1,15 @@
+#menu-wrapper {
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 4;
+  display: block;
+  max-height: 100%;
+}
+
 .menu {
+  margin-top: 50px;
   position: absolute;
-  top: 0;
   z-index: 1;
   width: 100%;
   padding: $padding-big;
@@ -8,8 +17,6 @@
   @include box-sizing(border-box);
   @include transition(all .7s);
   @include opacity(1);
-
-  max-height: 100%;
 
   ul {
     background: rgba(46, 52, 54, 0.75);
@@ -29,7 +36,7 @@
         border: 0;
       }
 
-      a:link, a:visited {
+      a:link, a:visited, a {
         color: white;
         display: block;
       }

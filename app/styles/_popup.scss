@@ -18,7 +18,7 @@ $popup-footer-height: 44px;
 
   #popup-content {
     position: relative;
-    z-index: 3;
+    z-index: 5;
     background: white;
     padding: $padding;
     min-height: 60%;
@@ -30,7 +30,7 @@ $popup-footer-height: 44px;
 
 #popup-header {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   border-bottom: $border-seperator;
   padding: $padding;
   background: white;
@@ -57,7 +57,7 @@ $popup-footer-height: 44px;
   border-top: $border-seperator;
   height: $popup-footer-height;
   position: fixed;
-  z-index: 4;
+  z-index: 6;
   bottom: 0;
   width: 100%;
 
@@ -91,7 +91,7 @@ $popup-footer-height: 44px;
   #popup-header {
     position: fixed;
     top: 0;
-    z-index: 4;
+    z-index: 6;
     // Needed because of jQuery.
     margin-top: 0 !important;
     width: 100%;

@@ -8,6 +8,10 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
   return {
     init: function() {
 
+/********************************************************
+ * Prepare
+ ********************************************************/
+
       var menuData = {
         menuItems: {
           about: {
@@ -60,6 +64,31 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
             label: 'How to get this started?',
             href: '#'
           },
+          about2: {
+            icon: 'info',
+            label: 'About',
+            href: '#'
+          },
+          settings2: {
+            icon: 'rocket',
+            label: 'Woop woop',
+            href: '#'
+          },
+          dummy2: {
+            icon: 'anchor',
+            label: 'How to use',
+            href: '#'
+          },
+          lorem2: {
+            icon: 'asterisk',
+            label: 'New things in town',
+            href: '#'
+          },
+          ipsum2: {
+            icon: 'check-sign',
+            label: 'How to get this started?',
+            href: '#'
+          },
         },
         filterItems: {
           about: {
@@ -90,14 +119,13 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
         }
       };
 
+/********************************************************
+ * Render
+ ********************************************************/
+
       var menuMarkup = twigFabric.render('menu', menuData);
 
       $('#main').prepend(menuMarkup);
-
-      $('.trigger-menu, .close-button').click(function () {
-        $(this).parent().toggleClass('expanded');
-        $('body').toggleClass('has-menu-expanded');
-      });
 
       // Control functions.
       $('.menu').scroll(function () {
@@ -120,10 +148,42 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
       });
 
       $(window).resize(function() {
-        $('.menu ul').css('max-height', $(window).height() - 40);
+        $('.menu ul').css('max-height', $(window).height() - 88);
       });
 
       $(window).resize();
+
+/********************************************************
+ * Touch functions
+ ********************************************************/
+
+
+      $('.close-button, .trigger-menu').click(function () {
+        $(this).parent().toggleClass('expanded');
+        $('body').toggleClass('has-menu-expanded');
+      });
+
+      // Filter menu swipes
+      $$('#trigger-menu-filters').swipeLeft(function(event) {
+        $('#menu-filters').toggleClass('expanded');
+        $('body').toggleClass('has-menu-expanded');
+      });
+
+      $$('#menu-filters').swipeRight(function(event) {
+        $('#menu-filters').toggleClass('expanded');
+        $('body').toggleClass('has-menu-expanded');
+      });
+
+      // Main menu swipes
+      $$('#trigger-menu-main').swipeRight(function(event) {
+        $('#menu-main').toggleClass('expanded');
+        $('body').toggleClass('has-menu-expanded');
+      });
+
+      $$('#menu-main').swipeLeft(function(event) {
+        $('#menu-main').toggleClass('expanded');
+        $('body').toggleClass('has-menu-expanded');
+      });
 
     }
   }

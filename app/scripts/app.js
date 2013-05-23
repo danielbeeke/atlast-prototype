@@ -4,9 +4,13 @@
  * Triggers various inits.
  ********************************************************/
 
-define(['map', 'popup', 'menu'], function (mapFabric, popupFabric, menuFabric) {
+define(['map', 'popup', 'popup.test', 'menu', 'search'], function (mapFabric, popupFabric, popupTestFabric, menuFabric, searchFabric) {
   mapFabric.init();
   menuFabric.init();
+  searchFabric.init();
 
-  popupFabric.test('popup1');
+  var popupData = popupTestFabric.test('popup1');
+  popupFabric.open(popupData);
+
+
 });
