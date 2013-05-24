@@ -1,0 +1,13 @@
+{% if items %}
+  <a href="#" class="trigger-menu" id="trigger-menu-filters">
+    <i class="icon-list"></i>
+  </a>
+
+  <a class="close-button" href="#"><i class="icon-remove-sign"></i></a>
+
+  <ul>
+    {% for key, item in items %}
+      <li><input type="checkbox" id="{{ key }}" name="{{ key }}" /><label for="{{ key }}"><span></span>{{ item.label }}</label></li>
+    {% endfor %}
+  </ul>
+{% endif %}

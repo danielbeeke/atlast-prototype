@@ -16,6 +16,7 @@ require.config({
         twig: '../bower_components/twig.js/twig.min',
         scrollTo: '../bower_components/jquery.scrollTo/jquery.scrollTo',
         easing: '../bower_components/jquery-easing/jquery.easing',
+        once: '../bower_components/jquery-once/jquery.once',
     },
     shim: {
         bootstrap: {

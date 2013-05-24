@@ -39,9 +39,9 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
       // Replace the old popup.
       if ($('#popup').length) {
         $('#popup').fadeOut(function () {
-          $('#popup').remove(function () {
-            $('#main').after(newPopup);
-          });
+          $('#popup').remove();
+
+          $('#main').append(newPopup);
         });
       }
 
