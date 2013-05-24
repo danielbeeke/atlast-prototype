@@ -64,8 +64,6 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
         }
       });
 
-      $(window).resize();
-
       // Control functions.
       $('#popup').scroll(function () {
 
@@ -103,10 +101,12 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
       $(window).resize(function() {
         // Attach classes on resize, this is just fancy pantsy!
         $('#popup').scroll();
+        $('#popup-content, #popup-header').css('width', $(window).width());
       });
 
       // Init the has-hiddden content classes.
       $('#popup').scroll();
+      $(window).resize();
 
 /********************************************************
  * Functions triggers etc

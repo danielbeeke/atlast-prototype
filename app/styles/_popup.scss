@@ -10,6 +10,7 @@ $popup-footer-height: 44px;
   @include transition(all .7s);
 
   #popup {
+    width: 110%;
     height: 100%;
     overflow-y: scroll;
 
@@ -23,6 +24,7 @@ $popup-footer-height: 44px;
     padding: $padding;
     min-height: 60%;
 
+    @include box-sizing(border-box);
     @include transition(opacity .7s);
     @include opacity(1);
   }
@@ -70,9 +72,13 @@ $popup-footer-height: 44px;
       float: left;
       border-right: 1px dashed $gray-light;
 
-      a {
+      a:link, a:visited, a {
         @include inline-block;
         padding: $padding 15px;
+
+        &:hover {
+          color: white;
+        }
       }
     }
 

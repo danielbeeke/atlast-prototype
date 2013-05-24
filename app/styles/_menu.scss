@@ -21,7 +21,7 @@
   ul {
     background: rgba(46, 52, 54, 0.75);
     display: block;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     @include box-sizing(border-box);
     @include border-radius($radius);

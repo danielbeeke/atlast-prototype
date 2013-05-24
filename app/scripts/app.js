@@ -4,7 +4,8 @@
  * Triggers various inits.
  ********************************************************/
 
-define(['map', 'popup', 'popup.test', 'menu', 'search'], function (mapFabric, popupFabric, popupTestFabric, menuFabric, searchFabric) {
+define(['splashscreen', 'map', 'popup', 'popup.test', 'menu', 'search'], function (splashFabric, mapFabric, popupFabric, popupTestFabric, menuFabric, searchFabric) {
+  splashFabric.init();
   mapFabric.init();
   menuFabric.init();
   searchFabric.init();

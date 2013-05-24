@@ -17,11 +17,12 @@ $radius: 5px;
 
 $border-seperator: 2px solid $gray;
 
-@import '../../bower_components/leaflet/dist/leaflet.css';
 @import 'font-awesome/font-awesome';
+@import 'leaflet-awesome-markers';
 @import 'compass';
 @import 'susy';
 @import 'fonts';
+@import 'splashscreen';
 @import 'map';
 @import 'search';
 @import 'menu';

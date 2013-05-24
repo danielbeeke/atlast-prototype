@@ -15,16 +15,20 @@ define(['jquery', 'twigloader', 'settings', 'popup', 'once'], function ($, twigF
  * Prepare
  ********************************************************/
 
+      // Getting the menu items.
       $.getJSON(settingsFabric.api + '/menu/' + settingsFabric.instanceId, null, function(json) {
         var menuMainMarkup = twigFabric.render('menu-main', json);
         $('#menu-main').html(menuMainMarkup);
         menuFabric.attachFunctions();
+        $('body').trigger('loadingProgress', ['menuMain']);
       });
 
+      // Gettings the filters.
       $.getJSON(settingsFabric.api + '/filters/' + settingsFabric.instanceId, null, function(json) {
         var menuFiltersMarkup = twigFabric.render('menu-filters', json);
         $('#menu-filters').html(menuFiltersMarkup);
         menuFabric.attachFunctions();
+        $('body').trigger('loadingProgress', ['menuFilters']);
       });
 
     },
@@ -43,6 +47,28 @@ define(['jquery', 'twigloader', 'settings', 'popup', 'once'], function ($, twigF
  * Touch functions
  ********************************************************/
 
+      // Filter menu swipes
+      $$('#trigger-menu-filters:not(.processed)').addClass('processed').swipeLeft(function(event) {
+        $('#menu-filters').toggleClass('expanded');
+        $('body').toggleClass('has-menu-expanded');
+      });
+
+      $$('#menu-filters:not(.processed)').addClass('processed').swipeRight(function(event) {
+        $('#menu-filters').toggleClass('expanded');
+        $('body').toggleClass('has-menu-expanded');
+      });
+
+      // Main menu swipes
+      $$('#trigger-menu-main:not(.processed)').addClass('processed').swipeRight(function(event) {
+        $('#menu-main').toggleClass('expanded');
+        $('body').toggleClass('has-menu-expanded');
+      });
+
+      $$('#menu-main:not(.processed)').addClass('processed').swipeLeft(function(event) {
+        $('#menu-main').toggleClass('expanded');
+        $('body').toggleClass('has-menu-expanded');
+      });
+
       $('.close-button, .trigger-menu').once('attachFunctions').on('click', function () {
         $(this).parent().toggleClass('expanded');
         $('body').toggleClass('has-menu-expanded');
@@ -57,29 +83,6 @@ define(['jquery', 'twigloader', 'settings', 'popup', 'once'], function ($, twigF
 
           popupFabric.open(json);
         });
-      });
-
-
-      // Filter menu swipes
-      $$('#trigger-menu-filters').on('swipeLeft', function(event) {
-        $('#menu-filters').toggleClass('expanded');
-        $('body').toggleClass('has-menu-expanded');
-      });
-
-      $$('#menu-filters').on('swipeRight', function(event) {
-        $('#menu-filters').toggleClass('expanded');
-        $('body').toggleClass('has-menu-expanded');
-      });
-
-      // Main menu swipes
-      $$('#trigger-menu-main').on('swipeRight', function(event) {
-        $('#menu-main').toggleClass('expanded');
-        $('body').toggleClass('has-menu-expanded');
-      });
-
-      $$('#menu-main').on('swipeLeft', function(event) {
-        $('#menu-main').toggleClass('expanded');
-        $('body').toggleClass('has-menu-expanded');
       });
 
     }

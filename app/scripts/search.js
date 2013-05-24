@@ -14,6 +14,8 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
       var searchResponseMarkup = twigFabric.render('searchresults');
       $('#search-results').html(searchResponseMarkup);
 
+      $('body').trigger('loadingProgress', ['search']);
+
       $('#search-input').focus(function() {
         $('.menu.expanded').removeClass('expanded');
         $('#search-results').addClass('expanded');
