@@ -81,20 +81,14 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
         }
 
         // Toggles has-hidden-content classes.
-        // TODO find out why it does not seem to work for wider screens.
-        if ($('#popup').height() + visibleHeightOfMap < $('#popup-content').height()) {
-          if($(this).scrollTop() == 0) {
-            $('.fullscreen #popup-header').removeClass('has-hidden-content');
-            $('#popup-footer').addClass('has-hidden-content');
-          } else if ($('#popup')[0].scrollHeight - $('#popup').height() == $('#popup').scrollTop()) {
-            $('#popup-footer').removeClass('has-hidden-content');
-            $('#popup-header').addClass('has-hidden-content');
-          } else {
-            $('#popup-header, #popup-footer').addClass('has-hidden-content');
-          }
-        }
-        else {
-          $('#popup-header, #popup-footer').removeClass('has-hidden-content');
+        if($(this).scrollTop() == 0) {
+          $('.fullscreen #popup-header').removeClass('has-hidden-content');
+          $('#popup-footer').addClass('has-hidden-content');
+        } else if ($('#popup')[0].scrollHeight - $('#popup').height() == $('#popup').scrollTop()) {
+          $('#popup-footer').removeClass('has-hidden-content');
+          $('#popup-header').addClass('has-hidden-content');
+        } else {
+          $('#popup-header, #popup-footer').addClass('has-hidden-content');
         }
       });
 
