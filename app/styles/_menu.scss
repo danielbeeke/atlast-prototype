@@ -130,24 +130,29 @@
   }
 }
 
-.has-menu-expanded .menu {
-  @include opacity(0);
-  visibility: hidden;
-}
+.has-menu-expanded {
+  .menu {
+    @include opacity(0);
+    visibility: hidden;
+    .trigger-menu {
+      @include opacity(0);
+      visibility: hidden;
+    }
+  }
 
-.has-menu-expanded .menu.expanded {
-  @include opacity(1);
-  visibility: visible;
+  .menu.expanded {
+    @include opacity(1);
+    visibility: visible;
+    .trigger-menu {
+      @include opacity(1);
+      visibility: visible;
+    }
+  }
 
   .close-button {
     @include opacity(1);
     visibility: visible;
   }
-
-  // .trigger-menu {
-  //   @include opacity(0);
-  //   visibility: hidden;
-  // }
 }
 
 #menu-filters {

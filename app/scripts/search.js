@@ -9,7 +9,7 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
     init: function() {
       var searchMarkup = twigFabric.render('search');
 
-      $('#main').append(searchMarkup);
+      $('#search-wrapper').html(searchMarkup);
 
       var searchResponseMarkup = twigFabric.render('searchresults');
       $('#search-results').html(searchResponseMarkup);
@@ -23,8 +23,15 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
       });
 
       $('#search-input').blur(function() {
-        $('#search-results').removeClass('expanded');
+        $('.menu.expanded').removeClass('expanded');
         $('body').removeClass('has-menu-expanded');
+      });
+
+      $('#search-results-wrapper .close-button').click(function() {
+        $('.menu.expanded').removeClass('expanded');
+        $('body').removeClass('has-menu-expanded');
+
+        console.log('hoi')
       });
 
       $('#search-input').keyup(function() {

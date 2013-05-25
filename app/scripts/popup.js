@@ -5,7 +5,7 @@
  ********************************************************/
 
 define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, scrollToFabric, easingFabric) {
-  var functions = {
+  var popupFabric = {
     open: function(render) {
 
 /********************************************************
@@ -54,7 +54,7 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
  * Functions to create the visual interaction
  ********************************************************/
 
-      var visibleHeightOfMap = $('#popup').height() - $('#popup-header').outerHeight() - $('.with-actions #popup-footer').outerHeight();
+      var visibleHeightOfMap;
 
       $(window).resize(function() {
         visibleHeightOfMap = $('#popup').height() - $('#popup-header').outerHeight() - $('.with-actions #popup-footer').outerHeight();
@@ -62,6 +62,10 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
         if ($('#popup-wrapper').hasClass('with-teaser')) {
           $('#popup-header').css('margin-top', visibleHeightOfMap + 2);
         }
+
+        // Attach classes on resize, this is just fancy pantsy!
+        $('#popup').scroll();
+        $('#popup-content, #popup-header').css('width', $(window).width());
       });
 
       // Control functions.
@@ -92,12 +96,6 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
         }
       });
 
-      $(window).resize(function() {
-        // Attach classes on resize, this is just fancy pantsy!
-        $('#popup').scroll();
-        $('#popup-content, #popup-header').css('width', $(window).width());
-      });
-
       // Init the has-hiddden content classes.
       $('#popup').scroll();
       $(window).resize();
@@ -107,7 +105,7 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
  ********************************************************/
 
       $('#popup-close-button').click(function(event) {
-        functions.close();
+        popupFabric.close();
       });
 
       $$('#popup').swipeUp(function(event) {
@@ -134,7 +132,7 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
     }
   }
 
-  return functions;
+  return popupFabric;
 });
 
 

@@ -37,7 +37,7 @@ define(['jquery', 'twigloader', 'settings', 'popup', 'once'], function ($, twigF
  ********************************************************/
     attachFunctions: function() {
       // Control functions.
-      $(window).once('attachFunctions').on('resize', function() {
+      $(window).resize(function() {
         $('.menu ul').css('max-height', $(window).height() - 88);
       });
 
