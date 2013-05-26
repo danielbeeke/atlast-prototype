@@ -43,7 +43,7 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
       // Replace the old popup.
       if ($('#popup').length) {
         popupFabric.close(function() {
-          $('#popup-wrapper').removeClass('before-closing').replaceWith(newPopup);
+          $('#popup-wrapper').removeClass('before-closing').removeClass('closed').replaceWith(newPopup);
           popupFabric.attachFunctions();
         });
       }
@@ -137,11 +137,11 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
     close: function(callbackFunction) {
       $('#popup-wrapper').addClass('before-closing');
 
-      if (callbackFunction) {
-        setTimeout(function() {
-          callbackFunction();
-        }, 1000);
-      }
+      setTimeout(function() {
+      $('#popup-wrapper').addClass('closed');
+
+      if (callbackFunction) { callbackFunction(); }
+      }, 400);
     }
   }
 

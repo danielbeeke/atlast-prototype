@@ -142,3 +142,9 @@ $popup-footer-height: 44px;
     @include opacity(0);
   }
 }
+
+#popup-wrapper.closed {
+  #popup-content, #popup-header, #popup-footer {
+    display: none;
+  }
+}

@@ -38,11 +38,18 @@ define(['jquery', 'leaflet', 'settings', 'awesomeMarkers', 'popup'], function ($
           // Map the map_location ids to a array so we can call on them later on.
           markers[item.id] = L.geoJson(item.geojson, {
             pointToLayer: function (feature, latlng) {
-              return L.marker(latlng, {icon: icons[item.icon + '-' + item.color], id: item.id});
+              var marker = L.marker(latlng, {icon: icons[item.icon + '-' + item.color], id: item.id});
+
+              $.each(item.filters, function(index, filter) {
+                marker.options.icon.options.className = marker.options.icon.options.className + ' filter-' + filter;
+              });
+
+              return marker;
             }
           }).addTo(featureGroup);
 
           markers[item.id]._leaflet_id = item.id;
+
           markers[item.id].on('click', onMarkerClick);
 
         });

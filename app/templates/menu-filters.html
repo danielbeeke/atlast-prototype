@@ -7,7 +7,7 @@
 
   <ul>
     {% for key, item in items %}
-      <li><input type="checkbox" id="{{ key }}" name="{{ key }}" /><label for="{{ key }}"><span></span>{{ item.label }}</label></li>
+      <li><input type="checkbox" id="{{ key }}" name="filter-{{ item.id }}"  value="filter-{{ item.id }}" /><label for="{{ key }}"><span></span>{{ item.label }}</label></li>
     {% endfor %}
   </ul>
 {% endif %}

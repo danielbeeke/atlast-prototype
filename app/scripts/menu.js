@@ -74,6 +74,25 @@ define(['jquery', 'twigloader', 'settings', 'popup', 'once'], function ($, twigF
         $('body').toggleClass('has-menu-expanded');
       });
 
+      // Filters
+      $('#menu-filters input').once('attachFunctions').on('change', function () {
+        var selectedFilters = [];
+        var notSelectedFilters = [];
+
+        $.each($('#menu-filters input:checked'), function(index, value) {
+          selectedFilters.push('#map .awesome-marker.' + $(this).val());
+          notSelectedFilters.push('.' + $(this).val());
+        });
+
+        if (notSelectedFilters.length) {
+          $('.awesome-marker:not(' + notSelectedFilters.join(', ') +  ')').fadeOut();
+        }
+        else {
+          $('.awesome-marker').fadeOut();
+        }
+        $(selectedFilters.join(', ')).fadeIn();
+      });
+
       $('.popup-trigger').once('attachFunctions').on('click', function () {
         $.getJSON(settingsFabric.api + '/popup_page/' + $(this).attr('data-id'), null, function(json) {
           json.fullscreen = true;
