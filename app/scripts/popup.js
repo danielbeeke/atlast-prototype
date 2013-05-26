@@ -42,21 +42,29 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
 
       // Replace the old popup.
       if ($('#popup').length) {
-        $('#popup').fadeOut(function () {
-          $('#popup').remove();
-
-          $('#main').append(newPopup);
+        popupFabric.close(function() {
+          $('#popup-wrapper').removeClass('before-closing').replaceWith(newPopup);
+          popupFabric.attachFunctions();
         });
       }
 
       // Init the popup.
       else {
         $('#main').append(newPopup);
+        popupFabric.attachFunctions();
       }
 
 /********************************************************
  * Functions to create the visual interaction
  ********************************************************/
+    },
+    attachFunctions: function() {
+      // Fade in animation.
+      $('#popup-wrapper').addClass('has-menu-expanded');
+
+      setTimeout(function() {
+        $('#popup-wrapper').removeClass('has-menu-expanded');
+      }, 300);
 
       var visibleHeightOfMap;
 
@@ -113,8 +121,6 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
       });
 
       $$('#popup').swipeUp(function(event) {
-        console.log(event)
-
         var force = event.iniTouch.y - event.currentTouch.y;
 
         $('#popup').scrollTo('+=' + force * 2 + 'px', 300);
@@ -128,11 +134,14 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
 
 
     },
-    close: function() {
+    close: function(callbackFunction) {
       $('#popup-wrapper').addClass('before-closing');
-      setTimeout(function() {
-        $('#popup-wrapper').remove();
-      }, 700);
+
+      if (callbackFunction) {
+        setTimeout(function() {
+          callbackFunction();
+        }, 1000);
+      }
     }
   }
 

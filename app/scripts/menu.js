@@ -48,23 +48,23 @@ define(['jquery', 'twigloader', 'settings', 'popup', 'once'], function ($, twigF
  ********************************************************/
 
       // Filter menu swipes
-      $$('#trigger-menu-filters:not(.processed)').addClass('processed').swipeLeft(function(event) {
+      $$('#trigger-menu-filters:not(.processed)').addClass('processed').on('swipeLeft', function(event) {
         $('#menu-filters').toggleClass('expanded');
         $('body').toggleClass('has-menu-expanded');
       });
 
-      $$('#menu-filters:not(.processed)').addClass('processed').swipeRight(function(event) {
+      $$('#menu-filters:not(.processed)').addClass('processed').on('swipeRight', function(event) {
         $('#menu-filters').toggleClass('expanded');
         $('body').toggleClass('has-menu-expanded');
       });
 
       // Main menu swipes
-      $$('#trigger-menu-main:not(.processed)').addClass('processed').swipeRight(function(event) {
+      $$('#trigger-menu-main:not(.processed)').addClass('processed').on('swipeRight', function(event) {
         $('#menu-main').toggleClass('expanded');
         $('body').toggleClass('has-menu-expanded');
       });
 
-      $$('#menu-main:not(.processed)').addClass('processed').swipeLeft(function(event) {
+      $$('#menu-main:not(.processed)').addClass('processed').on('swipeLeft', function(event) {
         $('#menu-main').toggleClass('expanded');
         $('body').toggleClass('has-menu-expanded');
       });

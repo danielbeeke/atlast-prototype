@@ -128,12 +128,11 @@ $popup-footer-height: 44px;
   }
 }
 
-body.has-menu-expanded {
-  #popup-wrapper {
-    #popup {
-      #popup-content, #popup-header, #popup-footer {
-        @include opacity(0);
-      }
+.has-menu-expanded,
+#popup-wrapper.has-menu-expanded {
+  #popup {
+    #popup-content, #popup-header, #popup-footer {
+      @include opacity(0);
     }
   }
 }

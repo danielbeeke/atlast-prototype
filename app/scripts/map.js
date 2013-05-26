@@ -14,7 +14,8 @@ define(['jquery', 'leaflet', 'settings', 'awesomeMarkers', 'popup'], function ($
       // create a map in the "map" div, set the view to a given place and zoom
       var map = L.map('map', {
         attributionControl: false,
-        zoomControl: false
+        zoomControl: false,
+        scrollWheelZoom: false,
       }).setView([51.505, -0.09], 13);
 
       // Add the map via the settings.
