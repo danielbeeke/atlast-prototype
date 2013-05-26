@@ -30,8 +30,6 @@ define(['jquery', 'twigloader'], function ($, twigFabric) {
       $('#search-results-wrapper .close-button').click(function() {
         $('.menu.expanded').removeClass('expanded');
         $('body').removeClass('has-menu-expanded');
-
-        console.log('hoi')
       });
 
       $('#search-input').keyup(function() {

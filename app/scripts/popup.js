@@ -29,6 +29,10 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
         render['classes'].push('no-actions');
       }
 
+      if (render.color) {
+        render['classes'].push(render.color);
+      }
+
 /********************************************************
  * Render
  ********************************************************/

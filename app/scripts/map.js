@@ -4,10 +4,11 @@
  * Loads the map onto the body.
  ********************************************************/
 
-define(['jquery', 'leaflet', 'settings', 'awesomeMarkers'], function ($, leaflet, settingsFabric, awesomeMarkersFabric) {
+define(['jquery', 'leaflet', 'settings', 'awesomeMarkers', 'popup'], function ($, leaflet, settingsFabric, awesomeMarkersFabric, popupFabric) {
+  var icons = {};
   var markers = {};
 
-  return {
+  var mapFabric = {
     init: function() {
 
       // create a map in the "map" div, set the view to a given place and zoom
@@ -16,10 +17,8 @@ define(['jquery', 'leaflet', 'settings', 'awesomeMarkers'], function ($, leaflet
         zoomControl: false
       }).setView([51.505, -0.09], 13);
 
-      // add an OpenStreetMap tile layer
-      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map);
+      // Add the map via the settings.
+      L.tileLayer(settingsFabric.mapPath).addTo(map);
 
       $.getJSON(settingsFabric.api + '/map_locations/' + settingsFabric.instanceId, null, function(json) {
 
@@ -27,21 +26,23 @@ define(['jquery', 'leaflet', 'settings', 'awesomeMarkers'], function ($, leaflet
 
         $.each(json.items, function(index, item) {
 
-          if (!markers[item.icon + '-' + item.color]) {
-            markers[item.icon + '-' + item.color] = L.AwesomeMarkers.icon({
+          // If the needed icon doesnt exist, create it.
+          if (!icons[item.icon + '-' + item.color]) {
+            icons[item.icon + '-' + item.color] = L.AwesomeMarkers.icon({
               icon: item.icon,
               color: item.color
             });
           }
 
-          L.geoJson(item.geojson, {
+          // Map the map_location ids to a array so we can call on them later on.
+          markers[item.id] = L.geoJson(item.geojson, {
             pointToLayer: function (feature, latlng) {
-              return L.marker(latlng, {icon: markers[item.icon + '-' + item.color]})
-            },
-            // onEachFeature: function (feature, layer) {
-            //   layer.bindPopup(item.label);
-            // }
+              return L.marker(latlng, {icon: icons[item.icon + '-' + item.color], id: item.id});
+            }
           }).addTo(featureGroup);
+
+          markers[item.id]._leaflet_id = item.id;
+          markers[item.id].on('click', onMarkerClick);
 
         });
 
@@ -51,6 +52,19 @@ define(['jquery', 'leaflet', 'settings', 'awesomeMarkers'], function ($, leaflet
         $('body').trigger('loadingProgress', ['map']);
       });
 
+      // Click action of a marker.
+      function onMarkerClick(event) {
+        var markerId = event.layer._leaflet_id;
+
+        // Getting the menu items.
+        $.getJSON(settingsFabric.api + '/map_location/' + markerId, null, function(json) {
+          popupFabric.open(json);
+        });
+
+      }
+
     }
   }
+
+  return mapFabric;
 });
