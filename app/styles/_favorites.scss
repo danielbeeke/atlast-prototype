@@ -1,0 +1,11 @@
+.favorites-link.flagged {
+  a:link, a:visited, a {
+    color: $orange;
+  }
+}
+
+.favorites-link.not-flagged {
+  a:link, a:visited, a {
+    color: $gray;
+  }
+}

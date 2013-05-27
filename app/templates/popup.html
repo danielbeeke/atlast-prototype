@@ -21,7 +21,9 @@
       {% if actions %}
         <ul>
           {% for action in actions %}
-            <li><a href="{{ action.href }}"><i class="icon-{{ action.icon }}"></i></a></li>
+            <li {% if action.classes %} class="{{ action.classes|join(' ') }}" {% endif %}>
+              <a href="{{ action.href }}" {% for key, value in action.data %} data-{{ key }}="{{ value }}" {% endfor %}><i class="icon-{{ action.icon }}"></i></a>
+            </li>
           {% endfor %}
         </ul>
       {% endif %}

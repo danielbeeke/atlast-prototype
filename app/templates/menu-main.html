@@ -6,7 +6,7 @@
   <a class="close-button" href="#"><i class="icon-remove-sign"></i></a>
   <ul>
     {% for item in items %}
-      <li><a data-id="{{ item.mid }}" class="popup-trigger" href="{{ item.href }}"><i class="icon-{{ item.icon }}"></i> {{ item.label }}</a></li>
+      <li {% if item.classes %} class="{{ item.classes|join(' ') }}" {% endif %}><a data-id="{{ item.mid }}" href="{{ item.href }}"><i class="icon-{{ item.icon }}"></i> {{ item.label }}</a></li>
     {% endfor %}
   </ul>
 {% endif %}

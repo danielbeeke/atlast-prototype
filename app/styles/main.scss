@@ -10,6 +10,19 @@ $black: #2e3436;
 $gray: #d3d7cf;
 $gray-light: #d3d7cf;
 
+$orange: #f69730;
+$green: #72b026;
+$blue: #38aadd;
+$purple: #d252b9;
+$darkred: #a23336;
+$red: #d63e2a;
+$darkblue: #0067a3;
+$darkgreen: #728224;
+$darkpurple: #5b396b;
+$cadetblue: #436978;
+
+$colors: blue $blue, orange $orange, darkgreen $darkgreen, green $green, purple $purple, darkred $darkred, red $red, darkblue $darkblue, darkpurple $darkpurple, cadetblue $cadetblue;
+
 $padding: 10px;
 $padding-big: 20px;
 
@@ -25,7 +38,9 @@ $border-seperator: 2px solid $gray;
 @import 'splashscreen';
 @import 'map';
 @import 'search';
+@import 'favorites';
 @import 'menu';
+@import 'throbber';
 @import 'popup';
 @import 'style';
 @import 'theme';

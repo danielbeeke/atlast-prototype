@@ -148,3 +148,25 @@ $popup-footer-height: 44px;
     display: none;
   }
 }
+
+
+@each $color_item in $colors {
+        // Sass variables.
+        $class: nth($color_item, 1);
+        $color: nth($color_item, 2);
+
+        #popup-wrapper.#{$class} #popup-header {
+          border-top: 3px solid $color;
+
+          h2 > i {
+            background: $color;
+            margin: -6px 0;
+            padding: 6px;
+            position: relative;
+            top: -3px;
+            color: white;
+            font-size: 14px;
+            @include border-radius(100%);
+          }
+        }
+}

@@ -4,9 +4,11 @@
  * Handles popup requests.
  ********************************************************/
 
-define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, scrollToFabric, easingFabric) {
+define(['jquery', 'twigloader', 'scrollTo', 'easing', 'throbber'], function ($, twigFabric, scrollToFabric, easingFabric, throbberFabric) {
   var popupFabric = {
     open: function(render) {
+
+      throbberFabric.start();
 
 /********************************************************
  * Prepare
@@ -59,11 +61,17 @@ define(['jquery', 'twigloader', 'scrollTo', 'easing'], function ($, twigFabric, 
  ********************************************************/
     },
     attachFunctions: function() {
+      $('body').trigger('popupOpen');
+
       // Fade in animation.
-      $('#popup-wrapper').addClass('has-menu-expanded');
+      // $('#popup-wrapper').addClass('has-menu-expanded');
+
+      $('#popup-wrapper').scrollTop(0);
+
+      throbberFabric.end();
 
       setTimeout(function() {
-        $('#popup-wrapper').removeClass('has-menu-expanded');
+        // $('#popup-wrapper').removeClass('has-menu-expanded');
       }, 300);
 
       var visibleHeightOfMap;

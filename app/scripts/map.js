@@ -4,7 +4,7 @@
  * Loads the map onto the body.
  ********************************************************/
 
-define(['jquery', 'leaflet', 'settings', 'awesomeMarkers', 'popup'], function ($, leaflet, settingsFabric, awesomeMarkersFabric, popupFabric) {
+define(['jquery', 'leaflet', 'settings', 'awesomeMarkers', 'popup', 'throbber'], function ($, leaflet, settingsFabric, awesomeMarkersFabric, popupFabric, throbberFabric) {
   var icons = {};
   var markers = {};
 
@@ -64,8 +64,17 @@ define(['jquery', 'leaflet', 'settings', 'awesomeMarkers', 'popup'], function ($
       function onMarkerClick(event) {
         var markerId = event.layer._leaflet_id;
 
-        // Getting the menu items.
-        $.getJSON(settingsFabric.api + '/map_location/' + markerId, null, function(json) {
+        throbberFabric.start();
+
+        $.ajax({
+          type: "POST",
+          url: settingsFabric.api + '/map_location/' + markerId,
+          data: {
+            accessToken: settingsFabric.accessToken,
+          }
+        }).done(function( json ) {
+          if (!json.classes) { json['classes'] = []; }
+          json['classes'].push('map-location-' + json.id);
           popupFabric.open(json);
         });
 
