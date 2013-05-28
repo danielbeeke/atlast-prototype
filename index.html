@@ -13,17 +13,24 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="styles/1672b6cd.main.css">
+        <link rel="stylesheet" href="styles/79c0f6de.main.css">
         <link rel="stylesheet" href="styles/leaflet.css">
 
         <script src="scripts/vendor/c324b817.modernizr.js"></script>
     </head>
     <body>
-
+        <div id="throbber"></div>
+        <div id="splash"><i class="icon-spinner icon-spin icon-large"></i></div>
         <div id="main">
+            <div id="search-wrapper"></div>
+            <div id="menu-wrapper">
+                <div id="menu-main" class="menu"></div>
+                <div id="menu-filters" class="menu"></div>
+            </div>
             <div id="map"></div>
         </div>
+        <div id="fb-root"></div>
 
-        <script data-main="scripts/24c3312b.main" src="bower_components/requirejs/require.js"></script>
+        <script data-main="scripts/6edfab8f.main" src="bower_components/requirejs/require.js"></script>
 </body>
 </html>
