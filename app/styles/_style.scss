@@ -57,3 +57,10 @@ p, div, i {
 .desktop .close-button {
   display: block;
 }
+
+.awesome-marker {
+  > i {
+    margin: 0;
+    padding: 10px;
+  }
+}

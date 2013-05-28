@@ -7,7 +7,7 @@ define(['jquery'], function($) {
 
         var settingsFabric = {
             instanceId: 1,
-            api: 'http://atlast.local/api/v1',
+            api: 'http://atlast.at/api/v1',
             init: function(nextFunction) {
               // Getting the settings.
               $.ajax({

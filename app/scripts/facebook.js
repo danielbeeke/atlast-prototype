@@ -6,7 +6,7 @@
 define(['jquery', 'settings'], function($, settingsFabric) {
 
         var facebookFabric = {
-            init: function() {
+            init: function(callbackFunction) {
 
               $('.facebook-login-menu-item').show();
               $('.facebook-logout-menu-item').hide();
@@ -27,10 +27,14 @@ define(['jquery', 'settings'], function($, settingsFabric) {
                   $('.facebook-logout-menu-item').show();
 
                   settingsFabric.accessToken = response.authResponse.accessToken;
+
+                  callbackFunction();
                 } else if (response.status === 'not_authorized') {
                   FB.login();
+                  callbackFunction();
                 } else {
                   FB.login();
+                  callbackFunction();
                 }
               });
               };

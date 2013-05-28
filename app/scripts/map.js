@@ -21,7 +21,13 @@ define(['jquery', 'leaflet', 'settings', 'awesomeMarkers', 'popup', 'throbber'],
       // Add the map via the settings.
       L.tileLayer(settingsFabric.mapPath).addTo(map);
 
-      $.getJSON(settingsFabric.api + '/map_locations/' + settingsFabric.instanceId, null, function(json) {
+      $.ajax({
+        type: "POST",
+        url: settingsFabric.api + '/map_locations/' + settingsFabric.instanceId,
+        data: {
+          accessToken: settingsFabric.accessToken,
+        }
+      }).done(function( json ) {
 
         var featureGroup = new L.featureGroup();
 
@@ -38,11 +44,16 @@ define(['jquery', 'leaflet', 'settings', 'awesomeMarkers', 'popup', 'throbber'],
           // Map the map_location ids to a array so we can call on them later on.
           markers[item.id] = L.geoJson(item.geojson, {
             pointToLayer: function (feature, latlng) {
-              var marker = L.marker(latlng, {icon: icons[item.icon + '-' + item.color], id: item.id});
+
+              var marker = L.marker(latlng, {icon: icons[item.icon + '-' + item.color]});
 
               $.each(item.filters, function(index, filter) {
                 marker.options.icon.options.className = marker.options.icon.options.className + ' filter-' + filter;
               });
+
+              if (item.emblems.length) {
+                marker.options.icon.options.emblems = item.emblems;
+              }
 
               return marker;
             }

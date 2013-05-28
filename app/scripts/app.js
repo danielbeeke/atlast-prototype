@@ -4,18 +4,17 @@
  * Triggers various inits.
  ********************************************************/
 
-define(['splashscreen', 'map', 'popup', 'popup.test', 'menu', 'search', 'settings', 'favorites', 'facebook', 'throbber'], function (splashFabric, mapFabric, popupFabric, popupTestFabric, menuFabric, searchFabric, settingsFabric, filtersFabric, facebookFabric, throbberFabric) {
+define(['splashscreen', 'map', 'popup', 'menu', 'search', 'settings', 'favorites', 'facebook', 'throbber', 'emblems'],
+  function (splashFabric, mapFabric, popupFabric, menuFabric, searchFabric, settingsFabric, filtersFabric, facebookFabric, throbberFabric, emblemsFabric) {
 
-  // We need the settings for each plguin to work.
+  // We need the settings for each plugin to work.
   settingsFabric.init(function() {
-    splashFabric.init();
-    mapFabric.init();
-    menuFabric.init();
-    searchFabric.init();
-    facebookFabric.init();
-
-    // var popupData = popupTestFabric.test('popup1');
-    // popupFabric.open(popupData);
+    facebookFabric.init(function() {
+      splashFabric.init();
+      mapFabric.init();
+      menuFabric.init();
+      searchFabric.init();
+    });
   });
 
 });

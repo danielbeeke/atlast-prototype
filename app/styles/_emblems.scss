@@ -1,0 +1,19 @@
+.awesome-marker .emblems {
+  i {
+    @include border-radius(100%);
+    bottom: -1px;
+    color: white;
+    font-size: 10px;
+    line-height: 10px;
+    padding: 4px;
+    position: absolute;
+    right: -2px;
+    left: auto;
+    @include box-shadow(inset 0 0 3px 0 $black);
+
+    &:nth-child(2) {
+      left: -2px;
+      right: auto;
+    }
+  }
+}
