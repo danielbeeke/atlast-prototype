@@ -1,0 +1,12 @@
+{% if items %}
+  <a href="#" class="trigger-menu" id="trigger-menu-main">
+    <i class="icon-align-justify"></i>
+  </a>
+
+  <a class="close-button" href="#"><i class="icon-remove-sign"></i></a>
+  <ul>
+    {% for item in items %}
+      <li {% if item.classes %} class="{{ item.classes|join(' ') }}" {% endif %}><a data-id="{{ item.mid }}" href="{{ item.href }}"><i class="icon-{{ item.icon }}"></i> {{ item.label }}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}
